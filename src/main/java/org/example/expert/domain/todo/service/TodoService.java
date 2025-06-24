@@ -25,6 +25,9 @@ public class TodoService {
     private final TodoRepository todoRepository;
     private final WeatherClient weatherClient;
 
+    // db에 Todo를 쓰기 작업을 하는데 클래스가 읽기 전용으로 설정되어 있어서
+    // 메소드에 따로 Transactional을 설정
+    @Transactional
     public TodoSaveResponse saveTodo(AuthUser authUser, TodoSaveRequest todoSaveRequest) {
         User user = User.fromAuthUser(authUser);
 
