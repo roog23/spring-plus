@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.expert.domain.common.annotation.Auth;
 import org.example.expert.domain.common.dto.AuthUser;
 import org.example.expert.domain.todo.dto.request.TodoSaveRequest;
+import org.example.expert.domain.todo.dto.response.TodoQueryDslResponse;
 import org.example.expert.domain.todo.dto.response.TodoResponse;
 import org.example.expert.domain.todo.dto.response.TodoSaveResponse;
 import org.example.expert.domain.todo.service.TodoService;
@@ -37,6 +38,19 @@ public class TodoController {
             @RequestParam(required = false) LocalDate endDate
             ) {
         return ResponseEntity.ok(todoService.getTodos(page, size, weather, startDate, endDate));
+    }
+
+    @GetMapping("/todos/QueryDsl")
+    public ResponseEntity<Page<TodoQueryDslResponse>> getTodosQueryDsl(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) LocalDate startDate,
+            @RequestParam(required = false) LocalDate endDate,
+            @RequestParam(required = false) String orderBy,
+            @RequestParam(required = false) String managerNickname
+    ) {
+        return ResponseEntity.ok(todoService.getTodosQueryDsl(page, size, title, startDate, endDate, orderBy, managerNickname));
     }
 
     @GetMapping("/todos/{todoId}")
