@@ -71,4 +71,14 @@ public class AdminAccessLoggingAspect {
             logRepository.save(logging);
         }
     }
+
+    // 검색 속도 측정을 위한 로그
+    @Around("execution(* org.example.expert.domain.user.controller.UserController.findUserWithNickname(..))")
+    public Object searchTime(ProceedingJoinPoint joinPoint) throws Throwable {
+        long startTime = System.currentTimeMillis();
+        Object result = joinPoint.proceed();
+        long endTime = System.currentTimeMillis();
+        log.info("result Time = {} ms", endTime - startTime);
+        return result;
+    }
 }

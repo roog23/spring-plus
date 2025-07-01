@@ -49,6 +49,10 @@ dependencies {
     annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 
     implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    //fixture-monkey
+    testImplementation("com.navercorp.fixturemonkey:fixture-monkey-starter:1.1.14")
+
 }
 
 tasks.named('test') {
